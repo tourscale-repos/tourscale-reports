@@ -26,14 +26,16 @@ python3 -m venv .venv
 cp .env.example .env  # then fill in
 ```
 
-Then add to host crontab:
+Then add to host crontab. **Important:** the Hetzner box is on Europe/Berlin TZ — pin reports to ET via `CRON_TZ` so DST is automatic.
 
 ```cron
-0 8 * * 1  cd /opt/tourscale/reports && .venv/bin/python ga4_weekly.py >> /var/log/tourscale-reports/ga4.log 2>&1
-0 9 * * 1  cd /opt/tourscale/reports && .venv/bin/python google_ads_weekly.py >> /var/log/tourscale-reports/google_ads.log 2>&1
+# tourscale-reports — weekly GA4 + Google Ads (forced to ET so DST is automatic)
+CRON_TZ=America/New_York
+0 8 * * 1 /opt/tourscale/reports/scripts/run.sh ga4_weekly.py >> /var/log/tourscale-reports/ga4.log 2>&1
+0 9 * * 1 /opt/tourscale/reports/scripts/run.sh google_ads_weekly.py >> /var/log/tourscale-reports/google_ads.log 2>&1
 ```
 
-Or use the wrapper script `scripts/run.sh` which sources `.env` first.
+The `scripts/run.sh` wrapper sources `.env` first. **Do not** use bare `python` in the cron command — `.env` won't load.
 
 ## Env vars (`.env`)
 
