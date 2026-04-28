@@ -135,7 +135,7 @@ def main():
 
     blocks = [
         {"type": "header", "text": {"type": "plain_text", "text": "💰 Weekly Google Ads Report", "emoji": True}},
-        {"type": "context", "elements": [{"type": "mrkdwn", "text": f"{ws} – {we}  •  _Supply Leads Account_"}]},
+        {"type": "context", "elements": [{"type": "mrkdwn", "text": f"{ws} – {we}  •  _Supply Leads Account · Test Report_"}]},
         {"type": "divider"},
         {"type": "section", "fields": [
             {"type": "mrkdwn", "text": f"*Spend*\n${total_spend:.2f}"},
