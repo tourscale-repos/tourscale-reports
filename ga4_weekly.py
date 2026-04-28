@@ -289,7 +289,7 @@ def main():
     to_addrs = [s.strip() for s in os.environ.get(
         "GA4_REPORT_TO", "kai@tourscale.com,andrew@tourscale.com").split(",") if s.strip()]
     cc_addrs = [s.strip() for s in os.environ.get(
-        "GA4_REPORT_CC", "bmave@tourscale.com").split(",") if s.strip()]
+        "GA4_REPORT_CC", "tourscale@bmave.com").split(",") if s.strip()]
 
     if "--dry-run" in sys.argv:
         print("DRY RUN — would send to:", to_addrs, "cc:", cc_addrs)
