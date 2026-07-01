@@ -6,6 +6,25 @@ Hetzner-hosted scheduled reports: GA4 weekly + Google Ads weekly. **Replaces the
 |---|---|---|
 | `ga4_weekly.py` | Monday 8am ET | Email (kai+andrew, cc bmave) + Slack `#ai-marketing` |
 | `google_ads_weekly.py` | Monday 9am ET | Slack `#ai-adwords` |
+| `monthly_backoffice_remittance.py` | 5th of month 9am ET (`--send`) | Emails each bill to the Ramp AP inbox (CC kai) + a summary to kai |
+
+## Back-office fee remittance (`monthly_backoffice_remittance.py`)
+
+Monthly, remits back the 6% back-office booking fee Peek charges on phone/staff bookings
+for two franchisees (3 billing entities: JAB Boating LLC, Tiki Times Rentals LLC, Cape Coral
+Entertainment LLC). Pulls `totalPeekFees` on Peek Pro Mobile/Web display sources via the
+peek-app GraphQL proxy (purchase-date basis), updates a per-entity YTD xlsx, issues a
+remittance-statement PDF per entity, and builds a Ramp Bill Pay manifest — all under `output/`.
+
+- `--send` (cron default): emails **each bill** to the Ramp bills inbox (`RAMP_BILLS_EMAIL`), **CC kai**, one email = one bill (Ramp OCRs one invoice per email), then emails kai a summary + manifest. Ramp creates drafts reviewed/approved in Ramp.
+- `--notify`: emails kai only a review summary + PDFs/manifest, **sends nothing to Ramp** (preview mode).
+- no flag: dry-run.
+- Optional first arg `YYYY-MM` (defaults to previous completed month).
+
+Extra env: `PEEK_APP_INTERNAL_TOKEN` (from `/opt/tourscale/.env`), `RAMP_BILLS_EMAIL`
+(default `tourscalefranchising@ap.ramp.com`), `REMITTANCE_NOTIFY_EMAIL` (default kai@tourscale.com),
+`CHROMIUM_BIN` (default `/usr/bin/chromium` — requires `apt install chromium`).
+Note: back-office figures for past months drift slightly as Peek refunds post; bill promptly.
 
 ## Why not n8n
 

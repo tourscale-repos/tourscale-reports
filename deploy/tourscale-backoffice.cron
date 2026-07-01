@@ -1,0 +1,2 @@
+CRON_TZ=America/New_York
+0 9 5 * * root /opt/tourscale/reports/scripts/run.sh monthly_backoffice_remittance.py --send >> /var/log/tourscale-reports/backoffice.log 2>&1

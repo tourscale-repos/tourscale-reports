@@ -1,6 +1,7 @@
 .env
-.venv/
-__pycache__/
-*.pyc
-secrets/
 *.json
+output/
+*.pyc
+__pycache__/
+secrets/
+.venv/
